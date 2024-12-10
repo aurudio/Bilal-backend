@@ -2,7 +2,9 @@ import cors from 'cors';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 import mongoose from 'mongoose';
+import swaggerUi from 'swagger-ui-express';
 import router from './router.js';
+import swaggerDocs from './swagger.js';
 
 const PORT = 5000;
 const DB_URL =
@@ -17,6 +19,8 @@ app.use(
 		allowedHeaders: ['Content-Type', 'Authorization'],
 	})
 );
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use(express.json());
 app.use(fileUpload({}));
